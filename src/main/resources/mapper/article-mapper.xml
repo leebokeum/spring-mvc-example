@@ -1,10 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
-<mapper namespace="com.example.mvc.*"> 
+        
+<mapper namespace="com.example.mvc.mapper.ArticleMapper">  
 
-	<select id="getArticleById" resultType="Article">
-        select * from article
+	<!-- article 테이블에 글 등록 기능 -->
+    <insert id="writeArticle" parameterType="Article" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO article ( author, title, content )
+		    values( #{author},
+                    #{title},
+                    #{content} )
+	</insert>
+	
+     <!-- article 테이블에서 id 로 글 조회하기 -->
+	<select id="getArticleById" parameterType="int" resultType="Article">
+        select id, author, title, content
+        from article
+        where id = #{id}
     </select>
+    
+    
     
 </mapper>
